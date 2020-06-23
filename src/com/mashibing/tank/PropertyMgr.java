@@ -7,10 +7,14 @@ import java.util.Properties;
  * @author Xiao
  */
 public class PropertyMgr {
-    private static Properties props = null;
+    private static Properties props = new Properties();
 
     static {
-
+        try {
+            props.load(PropertyMgr.class.getClassLoader().getResourceAsStream("config"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private PropertyMgr(){
@@ -19,11 +23,6 @@ public class PropertyMgr {
     public static Properties getProps(){
         if (props == null){
             props = new Properties();
-            try {
-                props.load(PropertyMgr.class.getClassLoader().getResourceAsStream("config"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
         return props;
     }
