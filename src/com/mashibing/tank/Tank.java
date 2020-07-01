@@ -5,8 +5,8 @@ import java.util.Random;
 
 public class Tank {
 
-    private int x, y;
-    private Dir dir = Dir.DOWN;
+    int x, y;
+    Dir dir = Dir.DOWN;
     private static final int SPEED = 5;
 
     public static final int WIDTH = ResourceMgr.goodTankU.getWidth();
@@ -17,10 +17,12 @@ public class Tank {
 
     private Random random = new Random();
 
-    private TankFrame tf;
+    TankFrame tf;
 
-    private Group group = Group.BAD;
+    Group group = Group.BAD;
     Rectangle rect = new Rectangle();
+
+    FireStrategy fireStrategy;
 
     public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
@@ -33,6 +35,24 @@ public class Tank {
         rect.y = this.y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
+
+        if (group == Group.GOOD){
+            String goodFSName = (String) PropertyMgr.get("goodFS");
+            try {
+                fireStrategy = (FourDirFireStragegy)Class.forName(goodFSName).getDeclaredConstructor().newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+//            fireStrategy = new FourDirFireStragegy();
+        }else {
+            String badFSName = (String) PropertyMgr.get("badFS");
+            try {
+                fireStrategy = (DefaultFireStragegy)Class.forName(badFSName).getDeclaredConstructor().newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+//            fireStrategy = new DefaultFireStragegy();
+        }
     }
 
     public void paint(Graphics g) {
@@ -106,9 +126,7 @@ public class Tank {
     }
 
     public void fire() {
-        int bX = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
-        int bY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
-        tf.bullets.add(new Bullet(bX, bY, this.dir, this.group, this.tf));
+        fireStrategy.fire(this);
     }
 
     public void die() {
