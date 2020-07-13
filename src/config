@@ -5,5 +5,5 @@ bulletSpeed=10
 gameWidth=1080
 gameHeight=720
 #Stragegy
-goodFS=com.mashibing.tank.FourDirFireStragegy
-badFS=com.mashibing.tank.DefaultFireStragegy
+goodFS=com.mashibing.tank.strategy.FourDirFireStragegy
+badFS=com.mashibing.tank.strategy.DefaultFireStragegy

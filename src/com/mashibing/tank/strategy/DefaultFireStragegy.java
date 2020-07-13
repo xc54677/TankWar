@@ -1,4 +1,7 @@
-package com.mashibing.tank;
+package com.mashibing.tank.strategy;
+
+import com.mashibing.tank.Bullet;
+import com.mashibing.tank.Tank;
 
 /**
  * 默认开火策略，一次只打出一颗子弹

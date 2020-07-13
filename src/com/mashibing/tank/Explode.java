@@ -5,7 +5,7 @@ import java.awt.*;
 /**
  * 子弹类
  */
-public class Explode {
+public class Explode extends GameObject{
     public static final int WIDTH = ResourceMgr.explodes[0].getWidth();
     public static final int HEIGHT = ResourceMgr.explodes[0].getHeight();
 
@@ -25,10 +25,11 @@ public class Explode {
 //        new Audio("H:\\IDEAWorkSpace\\Tank\\src\\audio\\explode.wav").loop();
     }
 
+    @Override
     public void paint(Graphics g) {
         g.drawImage(ResourceMgr.explodes[step++], x, y, null);
         if (step >= ResourceMgr.explodes.length){
-            gm.explodes.remove(this);
+            gm.remove(this);
         }
 
     }

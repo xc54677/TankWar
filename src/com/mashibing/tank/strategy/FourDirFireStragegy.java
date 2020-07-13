@@ -1,9 +1,14 @@
-package com.mashibing.tank;
+package com.mashibing.tank.strategy;
+
+import com.mashibing.tank.Bullet;
+import com.mashibing.tank.Dir;
+import com.mashibing.tank.Tank;
+import com.mashibing.tank.strategy.FireStrategy;
 
 /**
  * 特殊开火策略：四个方向都打出子弹
  */
-public class FourDirFireStragegy implements FireStrategy{
+public class FourDirFireStragegy implements FireStrategy {
     @Override
     public void fire(Tank t) {
         int bX = t.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
