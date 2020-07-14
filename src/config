@@ -7,3 +7,5 @@ gameHeight=720
 #Stragegy
 goodFS=com.mashibing.tank.strategy.FourDirFireStragegy
 badFS=com.mashibing.tank.strategy.DefaultFireStragegy
+#collider
+colliders=com.mashibing.tank.cor.BulletTankCollider,com.mashibing.tank.cor.TankTankCollider

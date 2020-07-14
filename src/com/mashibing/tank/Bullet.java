@@ -93,9 +93,9 @@ public class Bullet extends GameObject{
      * 子弹和坦克的碰撞检测
      * @param tank
      */
-    public void collideWith(Tank tank) {
+    public boolean collideWith(Tank tank) {
         if (this.group == tank.getGroup()) {
-            return;
+            return false;
         }
         if (rect.intersects(tank.rect)){
             tank.die();
@@ -103,7 +103,10 @@ public class Bullet extends GameObject{
             int eX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
             int eY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
             gm.add(new Explode(eX, eY, gm));
+            return true;
         }
+
+        return false;
     }
 
     private void die() {

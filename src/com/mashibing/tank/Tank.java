@@ -132,6 +132,10 @@ public class Tank extends GameObject{
         this.dir = Dir.values()[random.nextInt(4)];
     }
 
+    public void stop(){
+        moving = false;
+    }
+
     public void fire() {
         fireStrategy.fire(this);
     }
@@ -178,5 +182,13 @@ public class Tank extends GameObject{
 
     public void setGroup(Group group) {
         this.group = group;
+    }
+
+    public Rectangle getRect() {
+        return rect;
+    }
+
+    public void setRect(Rectangle rect) {
+        this.rect = rect;
     }
 }
