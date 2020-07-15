@@ -7,9 +7,16 @@ import com.mashibing.tank.cor.TankTankCollider;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class GameModel {
-    Tank myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD,this);
+    private static final GameModel INSTANCE = new GameModel();
+
+    static {
+        INSTANCE.init();
+    }
+
+    Tank myTank;
 
 //    ArrayList<Bullet> bullets = new ArrayList<>();
 //    ArrayList<Tank> tanks = new ArrayList<>();
@@ -19,12 +26,28 @@ public class GameModel {
 
     private ArrayList<GameObject> objects = new ArrayList<>();
 
-    public GameModel() {
+    private GameModel() {
+
+    }
+
+    private void init(){
+        myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD);
+
         int initTankCount = Integer.parseInt((String) PropertyMgr.getProps().get("initTankCount"));
 
         for (int i = 0; i < initTankCount; i++){
-            add(new Tank(50+i*80, 200, Dir.DOWN, Group.BAD, this));
+            new Tank(50+i*80, 200, Dir.DOWN, Group.BAD);
         }
+
+        //初始化墙
+        add(new Wall(150, 150, 200, 50));
+        add(new Wall(550, 150, 200, 50));
+        add(new Wall(300, 300, 50, 200));
+        add(new Wall(550, 300, 50, 200));
+    }
+
+    public static GameModel getInstance(){
+        return INSTANCE;
     }
 
     public void add(GameObject go){

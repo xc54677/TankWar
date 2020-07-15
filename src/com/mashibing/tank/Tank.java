@@ -10,6 +10,7 @@ import java.util.Random;
 public class Tank extends GameObject{
 
     public int x, y;
+    int oldX, oldY;
     public Dir dir = Dir.DOWN;
     private static final int SPEED = 5;
 
@@ -21,18 +22,15 @@ public class Tank extends GameObject{
 
     private Random random = new Random();
 
-    public GameModel gm;
-
     public Group group = Group.BAD;
-    Rectangle rect = new Rectangle();
+    public Rectangle rect = new Rectangle();
 
     FireStrategy fireStrategy;
 
-    public Tank(int x, int y, Dir dir, Group group, GameModel gm) {
+    public Tank(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.gm = gm;
         this.group = group;
 
         rect.x = this.x;
@@ -57,12 +55,15 @@ public class Tank extends GameObject{
             }
 //            fireStrategy = new DefaultFireStragegy();
         }
+        if (this.group == Group.BAD){
+            GameModel.getInstance().add(this);
+        }
     }
 
     @Override
     public void paint(Graphics g) {
         if(!living) {
-            gm.remove(this);
+            GameModel.getInstance().remove(this);
         }
         switch (dir){
             case LEFT:
@@ -86,6 +87,9 @@ public class Tank extends GameObject{
     }
 
     private void move() {
+        //记录移动之前都位置
+        oldX = x;
+        oldY = y;
         if (!moving) {return;}
         switch (dir) {
             case LEFT:
@@ -142,6 +146,11 @@ public class Tank extends GameObject{
 
     public void die() {
         this.living = false;
+    }
+
+    public void back(){
+        x = oldX;
+        y = oldY;
     }
 
     public Dir getDir() {

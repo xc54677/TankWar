@@ -1,5 +1,7 @@
 package com.mashibing.tank;
 
+import org.junit.internal.runners.ErrorReportingRunner;
+
 import java.awt.*;
 
 /**
@@ -15,17 +17,15 @@ public class Bullet extends GameObject{
     private int y;
     private Dir dir;
 
-    private GameModel gm;
     private boolean living = true;
     private Group group = Group.BAD;
 
-    Rectangle rect = new Rectangle();
+    public Rectangle rect = new Rectangle();
 
-    public Bullet(int x, int y, Dir dir, Group group, GameModel gm) {
+    public Bullet(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.gm = gm;
         this.group = group;
 
         rect.x = this.x;
@@ -33,13 +33,13 @@ public class Bullet extends GameObject{
         rect.width = WIDTH;
         rect.height = HEIGHT;
 
-        this.gm.add(this);
+        GameModel.getInstance().add(this);
     }
 
     @Override
     public void paint(Graphics g) {
         if (!living){
-            gm.remove(this);
+            GameModel.getInstance().remove(this);
         }
 
         switch (dir){
@@ -102,14 +102,13 @@ public class Bullet extends GameObject{
             this.die();
             int eX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
             int eY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-            gm.add(new Explode(eX, eY, gm));
+            new Explode(eX, eY);
             return true;
         }
-
         return false;
     }
 
-    private void die() {
+    public void die() {
         this.living = false;
     }
 
