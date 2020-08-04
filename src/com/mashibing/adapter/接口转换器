@@ -1,0 +1,12 @@
+
+Adapter(Wrapper)
+
+例子：
+- 电压转接头
+- java.io
+- jdbc-odbc bridge (不是桥接模式)
+- ASM transformer
+
+误区：
+- 常见的Adapter类反而不是Adapter
+  比如：WindowAdapter, KeyAdapter
