@@ -1,0 +1,8 @@
+command模式
+- 别名：Action / Transaction
+- 宏命令：
+    - command与？模式
+- 多次undo
+    - command与？模式
+- transaction回滚
+    - command与？模式
