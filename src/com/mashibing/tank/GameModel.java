@@ -6,7 +6,9 @@ import com.mashibing.tank.cor.ColliderChain;
 import com.mashibing.tank.cor.TankTankCollider;
 
 import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class GameModel {
@@ -89,5 +91,27 @@ public class GameModel {
 
     public Tank getMyTank() {
         return myTank;
+    }
+
+    public void save(){
+        File f = new File("/Users/xiao/IdeaProjects/TankStatus.data");
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(f))) {
+            oos.writeObject(myTank);
+            oos.writeObject(objects);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void load() {
+        File f = new File("/Users/xiao/IdeaProjects/TankStatus.data");
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f))){
+            myTank = (Tank) ois.readObject();
+            objects = (ArrayList<GameObject>) ois.readObject();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

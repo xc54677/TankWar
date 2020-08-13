@@ -6,10 +6,12 @@ import com.mashibing.tank.Tank;
 import com.mashibing.tank.decorator.RectDecorator;
 import com.mashibing.tank.decorator.TailDecorator;
 
+import java.io.Serializable;
+
 /**
  * 默认开火策略，一次只打出一颗子弹
  */
-public class DefaultFireStragegy implements FireStrategy {
+public class DefaultFireStragegy implements FireStrategy, Serializable {
     @Override
     public void fire(Tank t) {
         int bX = t.x + Tank.WIDTH/2 - Bullet.WIDTH/2;

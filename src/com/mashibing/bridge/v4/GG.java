@@ -3,7 +3,7 @@ package com.mashibing.bridge.v4;
 public class GG {
 
     public void chase(MM mm){
-        Gift g = new WarmGift(new Flower()):
+        Gift g = new WarmGift(new Flower());
         give(mm, g);
     }
 

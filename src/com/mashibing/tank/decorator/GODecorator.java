@@ -3,8 +3,9 @@ package com.mashibing.tank.decorator;
 import com.mashibing.tank.GameObject;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public abstract class GODecorator extends GameObject {
+public abstract class GODecorator extends GameObject implements Serializable {
     GameObject go;
 
     public GODecorator(GameObject go) {
